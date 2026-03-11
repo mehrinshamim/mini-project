@@ -1,0 +1,25 @@
+# Core
+fastapi==0.110.0
+uvicorn[standard]==0.29.0
+python-multipart==0.0.9
+
+# Database
+psycopg2-binary==2.9.10
+pgvector==0.2.5
+
+# ML/Embeddings
+sentence-transformers==2.7.0
+scikit-learn==1.4.0
+numpy==1.26.4
+
+# Auth
+PyJWT==2.8.0
+bcrypt==4.1.2
+
+# PDF
+reportlab==4.0.7
+pdfminer.six==20231228
+
+# LLM (optional)
+openai==1.40.2
+requests==2.32.3
