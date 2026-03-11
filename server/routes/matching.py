@@ -1,26 +1,31 @@
+"""
+Resume-to-job matching (NO CHANGES - same as before)
+Uses PostgreSQL pgvector for embeddings
+"""
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
-import jwt, os
-from utils.db import _conn, _put_conn
+from utils.supabase_client import get_current_user
 from utils.embeddings import compute_similarity, extract_keywords
+from utils.db import _conn, _put_conn
 
 router = APIRouter(prefix="/api/match", tags=["matching"])
 security = HTTPBearer(auto_error=True)
-JWT_KEY = os.getenv("JWT_KEY", "dev-secret")
+
+def _extract_token(creds: HTTPAuthorizationCredentials = Depends(security)) -> str:
+    return creds.credentials
 
 class MatchRequest(BaseModel):
     jobDescription: str
 
-def _current_user(creds) -> str:
-    try:
-        payload = jwt.decode(creds.credentials, JWT_KEY, algorithms=["HS256"])
-        return payload.get("_id")
-    except:
-        raise HTTPException(status_code=401, detail="Invalid token")
-
 @router.post("/")
-def match_resume(req: MatchRequest, user_id: str = Depends(_current_user)):
-    """Compute resume-to-JD match score"""
+def match_resume(
+    req: MatchRequest,
+    token: str = Depends(_extract_token)
+):
+    """Compute resume-to-JD match score using pgvector"""
+    user_id = get_current_user(token)
+    
     if not req.jobDescription.strip():
         raise HTTPException(status_code=400, detail="jobDescription required")
     
@@ -29,7 +34,7 @@ def match_resume(req: MatchRequest, user_id: str = Depends(_current_user)):
         with conn.cursor() as cur:
             # Get user's resume embedding from pgvector
             cur.execute(
-                "SELECT resume_text, embedding FROM resumes WHERE user_id = %s", 
+                "SELECT resume_text, embedding FROM resumes WHERE user_id = %s",
                 (user_id,)
             )
             row = cur.fetchone()

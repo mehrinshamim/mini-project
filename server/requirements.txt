@@ -7,14 +7,17 @@ python-multipart==0.0.9
 psycopg2-binary==2.9.10
 pgvector==0.2.5
 
+# Supabase (REPLACES bcrypt, jwt for auth)
+supabase==2.0.4
+python-dotenv==1.0.0
+
 # ML/Embeddings
 sentence-transformers==2.7.0
 scikit-learn==1.4.0
 numpy==1.26.4
 
-# Auth
+# Auth (JWT verification only, no password hashing)
 PyJWT==2.8.0
-bcrypt==4.1.2
 
 # PDF
 reportlab==4.0.7
