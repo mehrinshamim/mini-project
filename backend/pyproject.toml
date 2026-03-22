@@ -16,4 +16,6 @@ dependencies = [
     "redis>=7.3.0",
     "sqlmodel>=0.0.37",
     "uvicorn[standard]>=0.42.0",
+    "docling>=2.0.0",
+    "python-multipart>=0.0.20",
 ]

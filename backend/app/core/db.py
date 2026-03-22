@@ -11,3 +11,11 @@ def create_db_and_tables():
 def get_session():
     with Session(engine) as session:
         yield session
+
+
+def seed_default_user():
+    from app.models.models import User
+    with Session(engine) as session:
+        if not session.get(User, 1):
+            session.add(User(email="local@autofiller.dev"))
+            session.commit()
