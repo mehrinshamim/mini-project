@@ -13,9 +13,32 @@ export default function ResumeSection() {
   const handleFile = useCallback((f: File) => {
     if (!f.name.toLowerCase().endsWith(".pdf")) return;
     setFile(f);
-    setState("parsing");
-    setTimeout(() => setState("done"), 1800);
   }, []);
+
+  const handleUpload = async () => {
+    if (!file) return;
+    setState("parsing");
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await fetch("http://localhost:8000/resumes/upload?user_id=1", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Upload failed");
+      }
+
+      const data = await response.json();
+      console.log("Upload successful:", data);
+      setState("done");
+    } catch (error) {
+      console.error("Upload error:", error);
+      setState("idle");
+    }
+  };
 
   const handleDrop = useCallback(
     (e: React.DragEvent) => {
@@ -172,6 +195,20 @@ export default function ResumeSection() {
                 </div>
               </div>
             </div>
+          )}
+
+          {!isParsing && !isDone && (
+            <button
+              onClick={handleUpload}
+              className="w-full mt-2 py-3 rounded-xl font-bold transition-all duration-200"
+              style={{
+                background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                color: "#ffffff",
+                boxShadow: "0 4px 14px rgba(16,185,129,0.4)"
+              }}
+            >
+              Submit Resume
+            </button>
           )}
         </div>
       )}
