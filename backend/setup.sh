@@ -24,7 +24,13 @@ fi
 echo "Starting Docker containers (db, redis)..."
 docker-compose up -d db redis
 
-# 5. Run migrations
+# 5. Wait for DB to be ready
+echo "Waiting for database to be ready..."
+until docker-compose exec -T db pg_isready -U "${DB_USER:-postgres}" > /dev/null 2>&1; do
+    sleep 1
+done
+
+# 6. Run migrations
 echo "Running DB migrations..."
 uv run alembic upgrade head
 
