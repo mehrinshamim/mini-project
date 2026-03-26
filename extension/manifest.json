@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "Job Autofiller",
+  "version": "1.0",
+  "description": "Auto-fills job applications using AI",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://localhost:*/*"],
+      "js": ["sync.js"]
+    },
+    {
+      "matches": ["<all_urls>"],
+      "exclude_matches": ["http://localhost:*/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ],
+  "action": {
+    "default_title": "Job Autofiller",
+    "default_popup": "popup.html"
+  }
+}

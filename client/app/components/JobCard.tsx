@@ -130,11 +130,11 @@ export default function JobCard({ job, index }: JobCardProps) {
           </div>
         )}
 
-        {/* Actions */}
         <div className="mt-4 flex items-center gap-3">
           {job.url ? (
             <a
               href={job.url}
+              onClick={() => localStorage.setItem("job_id", job.id.toString())}
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl font-bold transition-all duration-200"
