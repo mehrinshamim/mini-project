@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+:root {
+  --bg-deep: #060d1a;
+  --bg-card: #071020;
+  --bg-card2: #0a1628;
+  --green-primary: #10b981;
+  --green-bright: #34d399;
+  --green-muted: #6ee7b7;
+  --green-dim: #2d5c47;
+  --green-darker: #065f46;
+  --text-primary: #ecfdf5;
+  --text-secondary: #a7f3d0;
+  --text-muted: #6ee7b7;
+  --border-subtle: rgba(16, 185, 129, 0.15);
+  --border-card: rgba(16, 185, 129, 0.18);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Urbanist', sans-serif;
+  background: #060d1a;
+  color: #ecfdf5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #071020; }
+::-webkit-scrollbar-thumb { background: rgba(16, 185, 129, 0.25); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(16, 185, 129, 0.45); }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes slide-up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes glow-pulse { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
+@keyframes score-fill { from { width: 0%; } }
+
+.animate-slide-up { animation: slide-up 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-fade-in { animation: fade-in 0.4s ease forwards; }
+.spinner { animation: spin 0.75s linear infinite; }
+.glow-pulse { animation: glow-pulse 2s ease-in-out infinite; }
+.score-bar { animation: score-fill 1s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
