@@ -1,0 +1,16 @@
+meta {
+  name: List Jobs
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{base_url}}/jobs/?user_id=1&search_id=1
+  body: none
+  auth: none
+}
+
+query {
+  user_id: 1
+  search_id: 1
+}

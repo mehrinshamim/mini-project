@@ -1,0 +1,19 @@
+meta {
+  name: Upload Resume
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/resumes/upload?user_id=1
+  body: multipartForm
+  auth: none
+}
+
+params:query {
+  user_id: 1
+}
+
+body:multipart-form {
+  file: @file(/home/mehrin/Downloads/MEHRIN FATHIMA SHAMIM - Resume.pdf)
+}

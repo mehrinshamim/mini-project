@@ -1,0 +1,24 @@
+meta {
+  name: Generate Answers REST
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/extension/answers
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "user_id": 1,
+    "job_id": 1,
+    "resume_id": 1,
+    "questions": [
+      "Why do you want to work here?",
+      "Describe your biggest technical achievement.",
+      "What is your expected salary?"
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+meta {
+  name: Discover Status
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}/jobs/discover/{{task_id}}/status
+  body: none
+  auth: none
+}

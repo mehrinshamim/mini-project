@@ -1,0 +1,26 @@
+meta {
+  name: Discover Jobs
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/jobs/discover
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "user_id": 1,
+    "title": "Senior Backend Engineer",
+    "location": "San Francisco, CA",
+    "limit": 20
+  }
+}
+
+script:post-response {
+  if (res.status === 200 && res.body && res.body.task_id) {
+    bru.setEnvVar("task_id", res.body.task_id);
+  }
+}

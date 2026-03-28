@@ -1,0 +1,25 @@
+meta {
+  name: Score Batch
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/jobs/score/batch
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "user_id": 1,
+    "resume_id": 1,
+    "search_id": 1
+  }
+}
+
+script:post-response {
+  if (res.status === 200 && res.body && res.body.task_id) {
+    bru.setEnvVar("task_id", res.body.task_id);
+  }
+}
