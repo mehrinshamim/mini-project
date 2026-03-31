@@ -81,6 +81,7 @@ interface Props {
 export default function JobSearchWithResults({ onJobsFound }: Props) {
   const [role, setRole] = useState("");
   const [location, setLocation] = useState("");
+  const [limit, setLimit] = useState(10);
   const [phase, setPhase] = useState<SearchPhase>("idle");
   const [resultCount, setResultCount] = useState(0);
   const [loadingStep, setLoadingStep] = useState({ title: "Searching LinkedIn", subtitle: "Fetching and ranking top matching roles…" });
@@ -106,7 +107,7 @@ export default function JobSearchWithResults({ onJobsFound }: Props) {
       const discoverRes = await fetch("http://localhost:8000/jobs/discover", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_id: 1, title: role, location, limit: 10 }),
+        body: JSON.stringify({ user_id: 1, title: role, location, limit }),
       });
 
       if (!discoverRes.ok) throw new Error("Discovery request failed");
@@ -256,6 +257,34 @@ export default function JobSearchWithResults({ onJobsFound }: Props) {
             onChange={(e) => setLocation(e.target.value)}
             disabled={isLoading}
             onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+            className="w-full pl-9 pr-4 py-3 rounded-xl outline-none transition-all duration-200"
+            style={{
+              background: "rgba(16,185,129,0.04)",
+              border: "1px solid rgba(16,185,129,0.18)",
+              color: "#ecfdf5",
+              fontSize: "0.875rem",
+              fontWeight: 500,
+              fontFamily: "inherit",
+            }}
+            onFocus={(e) => (e.target.style.borderColor = "rgba(16,185,129,0.45)")}
+            onBlur={(e) => (e.target.style.borderColor = "rgba(16,185,129,0.18)")}
+          />
+        </div>
+
+        <div className="relative">
+          <div className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" stroke="#2d5c47" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+          <input
+            type="number"
+            placeholder="Result limit  (e.g. 10)"
+            value={limit}
+            min={1}
+            max={50}
+            onChange={(e) => setLimit(Math.max(1, Math.min(50, parseInt(e.target.value, 10) || 1)))}
+            disabled={isLoading}
             className="w-full pl-9 pr-4 py-3 rounded-xl outline-none transition-all duration-200"
             style={{
               background: "rgba(16,185,129,0.04)",
