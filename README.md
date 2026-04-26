@@ -1,5 +1,8 @@
 # JobFlow
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+
 JobFlow is an autonomous agentic job application platform that streamlines your job hunt from start to finish. Upload your resume, scrape live job listings from LinkedIn, score fit with AI, and let JobFlow automatically generate tailored answers for application forms via a Chrome Extension — saving you time and effort.
 
 ---
@@ -42,6 +45,8 @@ Open `.env` and set your API keys:
 GROQ_API_KEY=your_groq_api_key_here
 APIFY_API_TOKEN=your_apify_token_here
 ```
+
+📚 **Note:** Refer to [`backend/docs/get-apify-token.md`](backend/docs/get-apify-token.md) for steps on getting your Apify token.
 
 Run the setup script to start the DB and Redis containers, and apply DB migrations:
 ```bash
@@ -94,3 +99,13 @@ JobFlow/
 ├── backend/        # FastAPI API, Celery workers, DB models, and AI logic
 └── extension/      # Chrome Extension for application autofilling
 ```
+
+---
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/mehrinshamim/mini-project/issues). You can also take a look at the [contributing guide](CONTRIBUTING.md) and our [code of conduct](CODE_OF_CONDUCT.md).
+
+## 📝 License
+
+This project is [MIT](LICENSE) licensed.
